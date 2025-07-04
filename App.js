@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import './global.css'
+import { Provider } from 'react-native-paper';
+import Homescreen from './src/screens/Homescreen';
+import Loginscreen from './src/screens/Loginscreen';
+import Dashboardscreen from './src/screens/Dashboardscreen';
+import Measurementscreen from './src/screens/Measurementscreen';
+
+const Stack = createNativeStackNavigator();
+
+const RootNavigator = () => {
+  return (
+    <NavigationContainer>
+      {/* <Stack.Navigator initialRouteName='Homescreen'> */}
+      <Stack.Navigator initialRouteName='Dashboardscreen'>
+        {/* <Stack.Navigator initialRouteName='Measurementscreen'> */}
+        <Stack.Screen name="Homescreen" component={Homescreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Loginscreen" component={Loginscreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Dashboardscreen" component={Dashboardscreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Measurementscreen" component={Measurementscreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider>
+      <RootNavigator />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
