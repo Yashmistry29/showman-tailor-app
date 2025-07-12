@@ -5,14 +5,14 @@ import Dropdownpicker from "../form/Dropdownpicker";
 import DropDownPicker from "react-native-dropdown-picker";
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 
-const GetCustomerDetails = ({ customerDetails }) => {
+const GetCustomerDetails = ({ customerDetails,setjobid }) => {
   const [selectedName, setSelectedName] = useState(null);
 
   const [openJob, setOpenJob] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [jobs, setJobs] = useState([]);
 
-  console.log(selectedName);
+  // console.log(selectedName);
 
   const handleNameSelect = (nameValue, jobIds) => {
     setSelectedName(nameValue);
@@ -38,12 +38,18 @@ const GetCustomerDetails = ({ customerDetails }) => {
     }
   }, [selectedName]);
 
-  console.log(jobs);
+  const handlePress=()=>{
+    setjobid(selectedJob);
+    console.log("CustomerId:", selectedName);
+    console.log("JobId:", selectedJob);
+  }
+
+  // console.log(jobs);
 
   return (
     <View
-      className="mx-4 my-2 p-4 border-l-8 border-rose-950 rounded-3xl"
-      style={{ backgroundColor: "#fff8e1" }}
+      className="mx-4 my-2 p-4 border-l-8 border-rose-950 rounded-3xl "
+      style={{ backgroundColor: "#fff1f2" }}
     >
       {/* <View className="bg-emerald-100 border-2 border-cyan-950 border-dashed shadow-md shadow-slate-950 py-2 px-4"> */}
       <View className="px-1 my-2 z-20">
@@ -81,10 +87,7 @@ const GetCustomerDetails = ({ customerDetails }) => {
             buttonColor="#8b0836"
             className="rounded-lg"
             labelStyle={{ fontSize: 16 }}
-            onPress={() => {
-              console.log("CustomerId:", selectedName);
-              console.log("JobId:", selectedJob);
-            }}
+            onPress={handlePress}
           >
             Search
           </Button>

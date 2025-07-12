@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
+import { View } from "react-native";
 
 const Dropdownpicker = ({ selectedName, onNameSelect, setSelectedName }) => {
   const [openNames, setOpenNames] = useState(false);
@@ -40,28 +41,30 @@ const Dropdownpicker = ({ selectedName, onNameSelect, setSelectedName }) => {
   };
 
   return (
-    <DropDownPicker
-      open={openNames}
-      value={selectedName}
-      items={filteredItems}
-      setOpen={setOpenNames}
-      setValue={setSelectedName} // Don't update here, use onChangeValue!
-      setItems={setFilteredItems}
-      listMode="MODAL"
-      searchable={true}
-      searchTextInputProps={{
-        onChangeText: handleSearchChange,
-        value: searchText,
-        placeholder: "Search name...",
-      }}
-      placeholder="Select Name"
-      dropDownContainerStyle={{
-        maxHeight: 200,
-        zIndex: 1000,
-        elevation: 1000,
-      }}
-      onChangeValue={handleChangeValue}
-    />
+    <View>
+      <DropDownPicker
+        open={openNames}
+        value={selectedName}
+        items={filteredItems}
+        setOpen={setOpenNames}
+        setValue={setSelectedName} // Don't update here, use onChangeValue!
+        setItems={setFilteredItems}
+        listMode="MODAL"
+        searchable={true}
+        searchTextInputProps={{
+          onChangeText: handleSearchChange,
+          value: searchText,
+          placeholder: "Search name...",
+        }}
+        placeholder="Select Name"
+        dropDownContainerStyle={{
+          maxHeight: 200,
+          zIndex: 1000,
+          elevation: 1000,
+        }}
+        onChangeValue={handleChangeValue}
+      />
+    </View>
   );
 };
 

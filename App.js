@@ -13,8 +13,8 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       {/* <Stack.Navigator initialRouteName='Homescreen'> */}
-      <Stack.Navigator initialRouteName="Dashboardscreen">
-        {/* <Stack.Navigator initialRouteName="Measurementscreen"> */}
+      {/* <Stack.Navigator initialRouteName="Dashboardscreen"> */}
+      <Stack.Navigator initialRouteName="Measurementscreen">
         <Stack.Screen
           name="Homescreen"
           component={Homescreen}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { TextInput, Button, Card, Text } from "react-native-paper";
+import { View, Text } from "react-native";
+import { TextInput, Button, Card } from "react-native-paper";
 import DropDownPicker from "react-native-dropdown-picker";
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 
@@ -71,13 +71,13 @@ const NameSearchMobileWithDropdown = ({ data, setData }) => {
   };
 
   return (
-    <View
-      className="my-5 mx-4 rounded-3xl"
-      style={{ backgroundColor: "#fff8e1" }}
-    >
-      <Card className="p-4 border-l-8 border-rose-950">
+    <View className="my-5 mx-4 rounded-3xl">
+      <Card
+        className="p-4 border-l-8 border-rose-950"
+        style={{ backgroundColor: "#fff1f2" }}
+      >
         <Card.Content>
-          <Text className="text-lg font-bold mb-4 text-blue-900">
+          <Text className="text-lg font-bold mb-4 text-rose-900">
             Search by Name or Mobile
           </Text>
 
@@ -102,22 +102,9 @@ const NameSearchMobileWithDropdown = ({ data, setData }) => {
               elevation: 1000,
             }}
           />
-
-          {/* <Text className="text-center my-2 text-blue-700">OR</Text>
-
-          <TextInput
-            label="Enter Mobile"
-            mode="outlined"
-            keyboardType="numeric"
-            value={mobile}
-            onChangeText={setMobile}
-            maxLength={10}
-            outlineColor="#0d47a1"
-            activeOutlineColor="#0d47a1"
-          /> */}
         </Card.Content>
 
-        <Card.Actions className="mt-2">
+        <Card.Actions className="my-2">
           <View className="flex-row w-full px-2 gap-2">
             <Button
               mode="contained"
@@ -146,3 +133,18 @@ const NameSearchMobileWithDropdown = ({ data, setData }) => {
 };
 
 export default NameSearchMobileWithDropdown;
+
+{
+  /* <Text className="text-center my-2 text-blue-700">OR</Text>
+
+          <TextInput
+            label="Enter Mobile"
+            mode="outlined"
+            keyboardType="numeric"
+            value={mobile}
+            onChangeText={setMobile}
+            maxLength={10}
+            outlineColor="#0d47a1"
+            activeOutlineColor="#0d47a1"
+          /> */
+}
