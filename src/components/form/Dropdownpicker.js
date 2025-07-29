@@ -2,39 +2,31 @@ import React, { useState, useEffect } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 import { sendRequest } from "../../utils/Helpers/HelpersMethod";
 import { View } from "react-native";
+import { useMeasurement } from "../context/MeasurementContext";
 
 const Dropdownpicker = ({ selectedName, onNameSelect, setSelectedName }) => {
+  const { nameList } = useMeasurement();
+
   const [openNames, setOpenNames] = useState(false);
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [allItems, setAllItems] = useState([]);
 
   useEffect(() => {
-    sendRequest("/customer/getnamelist", "POST").then((res) => {
-      if (res.success) {
-        const list = res.data.map((item) => ({
-          label: item.name,
-          value: item.id,
-          job_ids: item.job_ids,
-        }));
-        setAllItems(list);
-        setFilteredItems(list);
-      }
-    });
-  }, []);
+    setFilteredItems(nameList);
+  }, [nameList]);
 
   const handleSearchChange = (text) => {
     setSearchText(text);
-    const filtered = allItems.filter((item) =>
+    const filtered = nameList.filter((item) =>
       item.label.toLowerCase().startsWith(text.toLowerCase())
     );
     setFilteredItems(filtered);
   };
 
   const handleChangeValue = (value) => {
-    const found = allItems.find((item) => item.value === value);
+    const found = nameList.find((item) => item.value === value);
     if (found) {
-      onNameSelect(found.value, found.job_ids.reverse());
+      onNameSelect(found.value, found.job_ids);
     } else {
       onNameSelect(value, []);
     }
@@ -47,7 +39,7 @@ const Dropdownpicker = ({ selectedName, onNameSelect, setSelectedName }) => {
         value={selectedName}
         items={filteredItems}
         setOpen={setOpenNames}
-        setValue={setSelectedName} // Don't update here, use onChangeValue!
+        setValue={setSelectedName}
         setItems={setFilteredItems}
         listMode="MODAL"
         searchable={true}

@@ -1,52 +1,42 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { Icon } from "react-native-paper";
+import { useMeasurement } from "../context/MeasurementContext";
 
-const CustomerDataDisplay = ({ customer }) => {
+const CustomerDataDisplay = () => {
+  const { customerDetails } = useMeasurement();
   // console.log(customer);
   return (
-    // <View className="my-5 mx-4 border-2 rounded-xl border-rose-950 bg-rose-50 shadow-slate-900 shadow-md px-4 py-3">
-    <View className="m-3 px-4 py-3">
-      <View className="mx-0 mb-3">
+    <View className="m-3 p-5 rounded-2xl shadow-bg-slate-950 shadow-md bg-white">
+      <View className="mx-0 mb-3 flex flex-row items-center gap-3">
+        <Icon source="card-account-details" size={24} />
         <Text className="font-bold text-2xl">Customer Details</Text>
       </View>
       <View className="flex flex-col justify-start gap-1 ">
         <View className="flex flex-row items-center gap-2">
-          <Icon
-          source="note"
-          size={18}
-          />
+          <Icon source="note" size={18} />
           <Text className="font-semibold text-lg">{`Customer Id\t\t: ${
-            customer?.c_id ?? ""
+            customerDetails?.c_id || ""
           }`}</Text>
         </View>
         <View className="flex flex-row items-center gap-2">
-        <Icon
-          source="account"
-          size={18}
-          />
-        <Text className="font-semibold text-lg">{`Name\t\t\t\t\t\t\t: ${
-          customer?.name ?? ""
-        }`}</Text>
+          <Icon source="account" size={18} />
+          <Text className="font-semibold text-lg">{`Name\t\t\t\t\t\t\t: ${
+            customerDetails?.name || ""
+          }`}</Text>
         </View>
-        
+
         <View className="flex flex-row items-center gap-2">
-        <Icon
-          source="cellphone"
-          size={18}
-          />
-        <Text className="font-semibold text-lg">{`Mobile\t\t\t\t\t\t\t: ${
-          customer?.phone ?? ""
-        }`}</Text>
+          <Icon source="cellphone" size={18} />
+          <Text className="font-semibold text-lg">{`Mobile\t\t\t\t\t\t\t: ${
+            customerDetails?.phone || ""
+          }`}</Text>
         </View>
         <View className="flex flex-row items-center gap-2">
-        <Icon
-          source="map-marker"
-          size={18}
-          />
-        <Text className="font-semibold text-lg">{`Address\t\t\t\t\t: ${
-          customer?.address ?? ""
-        }`}</Text>
+          <Icon source="map-marker" size={18} />
+          <Text className="font-semibold text-lg">{`Address\t\t\t\t\t: ${
+            customerDetails?.address || ""
+          }`}</Text>
         </View>
       </View>
     </View>

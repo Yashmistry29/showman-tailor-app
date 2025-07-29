@@ -2,6 +2,7 @@ import { View, Text, Pressable } from "react-native";
 import React, { useState } from "react";
 import { Button, Checkbox, Icon } from "react-native-paper";
 import CustomModal from "./CustomModal";
+import { useMeasurement } from "../context/MeasurementContext";
 
 const items = [
   {
@@ -18,8 +19,8 @@ const ActionButton = ({ icon, label, onPress, disabled }) => (
   <Pressable onPress={onPress} disabled={disabled}>
     <View
       className={`${
-        disabled ? "bg-neutral-400" : "bg-rose-950"
-      } flex flex-row items-center gap-2 px-4 py-2 rounded-full`}
+        disabled ? "bg-neutral-300" : "bg-rose-950"
+      } flex flex-row items-center gap-2 px-4 py-2 rounded-xl`}
     >
       <Icon source={icon} size={18} color="#fff" />
       <Text className="font-semibold text-lg text-white">{label}</Text>
@@ -27,40 +28,50 @@ const ActionButton = ({ icon, label, onPress, disabled }) => (
   </Pressable>
 );
 
-const MeasumentView = ({
-  checked,
-  handleChange,
-  setPdata,
-  setSdata,
-  sdata,
-  pdata,
-}) => {
+const QuantityButton = ({ icon, onPress, disabled }) => (
+  <Pressable
+    onPress={onPress}
+    disabled={disabled}
+    className="rounded-md px-1 mx-1"
+    style={{
+      backgroundColor: disabled ? "#dfdfdf" : "#4c0519",
+    }}
+  >
+    <Icon source={icon} size={20} color="#fff" />
+  </Pressable>
+);
+
+const MeasumentView = ({ checked, handleChange }) => {
+  const { quantities, setQuantities } = useMeasurement();
   const [visible, setVisible] = useState(false);
-  const [mode, setMode] = useState("");
+  // const [mode, setMode] = useState("");
   const [type, setType] = useState("");
 
   const handlePress = (mode, type) => {
-    setMode(mode);
+    // setMode(mode);
     setType(type);
     setVisible(true);
   };
 
+  const handleQuantityChange = (key, delta) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [key]: Math.max(1, prev[key] + delta),
+    }));
+  };
+
   return (
-    <View className="my-0 mx-3">
+    <View className="p-0 m-0">
       <CustomModal
         visible={visible}
         setVisible={setVisible}
-        mode={mode}
+        // mode={mode}
         type={type}
-        setSdata={setSdata}
-        setPdata={setPdata}
-        sdata={sdata}
-        pdata={pdata}
       />
       {items.map((item) => (
         <View
           key={item.key}
-          className="flex flex-row justify-between items-center gap-2 px-3"
+          className="flex flex-row justify-between items-center"
         >
           <Checkbox.Item
             label={item.label}
@@ -75,12 +86,26 @@ const MeasumentView = ({
             status={checked[item.key] ? "checked" : "unchecked"}
             onPress={(e) => handleChange(e, item.key)}
           />
-          <View className="flex flex-row gap-2">
-            <ActionButton
-              icon="eye"
-              label="View"
-              type={item.key}
-              onPress={() => handlePress("view", item.key)}
+          <View className="flex flex-row items-center gap-2">
+            <QuantityButton
+              icon="minus"
+              onPress={() => handleQuantityChange(item.key, -1)}
+              disabled={quantities[item.key] <= 1 || !checked[item.key]}
+            />
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                width: 28,
+                textAlign: "center",
+                color: "#4c0519",
+              }}
+            >
+              {quantities[item.key]}
+            </Text>
+            <QuantityButton
+              icon="plus"
+              onPress={() => handleQuantityChange(item.key, 1)}
               disabled={!checked[item.key]}
             />
             <ActionButton

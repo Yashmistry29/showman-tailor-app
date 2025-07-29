@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import "./global.css";
 import { Provider } from "react-native-paper";
+import { MeasurementProvider } from "./src/components/context/MeasurementContext";
 import Homescreen from "./src/screens/Homescreen";
 import Loginscreen from "./src/screens/Loginscreen";
 import Dashboardscreen from "./src/screens/Dashboardscreen";
@@ -13,8 +14,8 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       {/* <Stack.Navigator initialRouteName='Homescreen'> */}
-      {/* <Stack.Navigator initialRouteName="Dashboardscreen"> */}
-      <Stack.Navigator initialRouteName="Measurementscreen">
+      <Stack.Navigator initialRouteName="Dashboardscreen">
+        {/* <Stack.Navigator initialRouteName="Measurementscreen"> */}
         <Stack.Screen
           name="Homescreen"
           component={Homescreen}
@@ -42,8 +43,10 @@ const RootNavigator = () => {
 
 export default function App() {
   return (
-    <Provider>
-      <RootNavigator />
-    </Provider>
+    <MeasurementProvider>
+      <Provider>
+        <RootNavigator />
+      </Provider>
+    </MeasurementProvider>
   );
 }
